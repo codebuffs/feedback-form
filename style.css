@@ -1,12 +1,12 @@
 body
 {
-    background-image: url("bk7.jpg");
+    background-image: url("bk8.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
     font-family: sans-serif;
 }
-
+/*
 .tabs
 {
     position: relative;
