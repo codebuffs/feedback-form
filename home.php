@@ -113,8 +113,32 @@
 				//echo "<h1>Successfully connected to DB</h1>";
 					$username = $_POST['username'];
 					$password = $_POST['password'];
-					$type = $_POST['type'];
-		$sql = "SELECT * FROM admin WHERE username='$username' AND password='$password';";// AND type='$type'";
+					if(isset($_POST['adminsubmit'])){
+						$type = 'admin';
+						$sql = "SELECT * FROM admin WHERE username='$username' AND password='$password';";// AND type='$type'";
+						$result = mysqli_query($conn, $sql);
+						if (mysqli_num_rows($result) > 0) { // admin exists. login.
+							$found = true;
+							$_SESSION["username"] = $username;
+							$_SESSION["type"] = $type;
+							$_SESSION["name"] = $name;
+							redirect("welcome.php");
+						}
+					}
+					if(isset($_POST['studentsubmit'])){
+						$type = 'student';
+						/*$sql = "SELECT * FROM admin WHERE username='$username' AND password='$password';";// AND type='$type'";
+						$result = mysqli_query($conn, $sql);
+						if (mysqli_num_rows($result) > 0) { // admin exists. login.
+							$found = true;
+							$_SESSION["username"] = $username;
+							$_SESSION["type"] = $type;
+							$_SESSION["name"] = $name;
+							redirect("welcome.php");
+						}*/
+					}
+					//$type = $_POST['type'];
+		/*$sql = "SELECT * FROM admin WHERE username='$username' AND password='$password';";// AND type='$type'";
 		$result = mysqli_query($conn, $sql);
 		if (mysqli_num_rows($result) > 0) {
 			// output data of each row
@@ -136,7 +160,7 @@
 				redirect("welcome.php");
 			}
 			}
-		}
+		}*/
 		if($found==false){
 			//echo "<h1>User does not exist. Please try again.</h1>";
 			?>
