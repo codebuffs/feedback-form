@@ -6,6 +6,10 @@ body
     background-attachment: fixed;
     font-family: sans-serif;
 }
+.panel-heading
+{
+    background-color: saddlebrown;
+}
 /*
 .tabs
 {
