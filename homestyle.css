@@ -1,0 +1,10 @@
+.alert p
+{
+    font-size: 30px;
+    text-align: center;
+}
+.panel p
+{
+    font-weight: bold;
+    font-size: 15px;
+}
