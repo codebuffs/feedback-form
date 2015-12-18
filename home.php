@@ -34,7 +34,8 @@
     <script>
 
     </script>
-    <link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="universal.css">
+    <link rel="stylesheet" href="homestyle.css">
 </head>
 <body>
 	<?php
