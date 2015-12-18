@@ -1,0 +1,13 @@
+.panel-body p
+{
+    font-size: 40px;
+    font-weight: bold;
+    color: chocolate;
+    text-align: center;
+}
+.panel-heading p
+{
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+}
