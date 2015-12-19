@@ -34,7 +34,8 @@
     <script>
 
     </script>
-    <link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="universal.css">
+    <link rel="stylesheet" href="homestyle.css">
 </head>
 <body>
 	<?php
@@ -57,8 +58,9 @@
 			return $conn;
 		}
 	?>
+	<br>
 	<div class="container-fluid">
-		<div class="alert alert-info">
+		<div class="alert alert-warning">
 			<strong>Please Sign In to Continue</strong>
 		</div>
 		<!---->
@@ -113,8 +115,32 @@
 				//echo "<h1>Successfully connected to DB</h1>";
 					$username = $_POST['username'];
 					$password = $_POST['password'];
-					$type = $_POST['type'];
-		$sql = "SELECT * FROM admin WHERE username='$username' AND password='$password';";// AND type='$type'";
+					if(isset($_POST['adminsubmit'])){
+						$type = 'admin';
+						$sql = "SELECT * FROM admin WHERE username='$username' AND password='$password';";// AND type='$type'";
+						$result = mysqli_query($conn, $sql);
+						if (mysqli_num_rows($result) > 0) { // admin exists. login.
+							$found = true;
+							$_SESSION["username"] = $username;
+							$_SESSION["type"] = $type;
+							$_SESSION["name"] = $name;
+							redirect("welcome.php");
+						}
+					}
+					if(isset($_POST['studentsubmit'])){
+						$type = 'student';
+						/*$sql = "SELECT * FROM admin WHERE username='$username' AND password='$password';";// AND type='$type'";
+						$result = mysqli_query($conn, $sql);
+						if (mysqli_num_rows($result) > 0) { // admin exists. login.
+							$found = true;
+							$_SESSION["username"] = $username;
+							$_SESSION["type"] = $type;
+							$_SESSION["name"] = $name;
+							redirect("welcome.php");
+						}*/
+					}
+					//$type = $_POST['type'];
+		/*$sql = "SELECT * FROM admin WHERE username='$username' AND password='$password';";// AND type='$type'";
 		$result = mysqli_query($conn, $sql);
 		if (mysqli_num_rows($result) > 0) {
 			// output data of each row
@@ -136,7 +162,7 @@
 				redirect("welcome.php");
 			}
 			}
-		}
+		}*/
 		if($found==false){
 			//echo "<h1>User does not exist. Please try again.</h1>";
 			?>
@@ -164,27 +190,13 @@
 		<div class="col-sm-4 col-md-4">
 		</div>
 		<div class="col-sm-4 col-md-4">
-			<div class="panel panel-primary">
+			<div class="panel panel-warning">
 				<div class="panel-heading">
-					<span class="glyphicon glyphicon-user"></span>  Login
+					<p><span class="glyphicon glyphicon-user"></span>  Login</p>
 				</div>
 				<div class="panel-body">
-			<!--<br><br><br><br><br><br><br><br>-->
-			<!--<div class="tabs">-->
-				<!--<div class="tab">-->
-					<!--<input type="radio" value="student" id="tab-1" name="tab-group-1" checked>-->
 					<form role="form" action='<?=$_SERVER['PHP_SELF']?>' method="post">
 					<div class="form-group">
-						<!--<input type="radio" name="usertype" value="student">Student<br>
-						<input type="radio" name="usertype" value="admin">Admin-->
-						<!--<div class="btn-group btn-group-justified">
-							<div class="btn-group">
-								<button type="button" class="btn btn-default" selected>Student</button>
-							</div>
-							<div class="btn-group">
-								<button type="button" class="btn btn-default">Admin</button>
-							</div>
-						</div>-->
 					</div>
 						<div class="content">
 								<div class="form-group">
@@ -197,42 +209,16 @@
 								</div>
 								<br>
 								<div class="form-group">
-									<!--<input type="button" name="submit" class="btn btn-primary btn-block" value="Login" id="submit">-->
-									<!--<input type = "submit" class="btn btn-primary btn-block" name = "submit" value="Log In"/>-->
 									<div class="btn-group btn-group-justified">
 										<div class="btn-group">
-											<input type = "submit" class="btn btn-primary btn-block" name = "adminsubmit" value="Admin"/>
+											<input type = "submit" class="btn btn-warning btn-block" name = "adminsubmit" value="Admin"/>
 										</div>
 										<div class="btn-group">
-											<input type = "submit" class="btn btn-primary btn-block" name = "studentsubmit" value="Student"/>
+											<input type = "submit" class="btn btn-warning btn-block" name = "studentsubmit" value="Student"/>
 										</div>
 									</div>
 								</div>
-							<!--</form>-->
 						</div>
-				<!--</div>-->
-				<!--<div class="tab">-->
-					<!--<input type="radio" value="admin" name="tab-group-1" checked>
-					<label for="tab-2">ADMIN</label>
-						<div class="content">
-							<!--<form role="form" action="#" method="post">
-								<p>
-									<br>
-									<label for="username">Username</label>
-									<input id="username" class="form-control" name="username2" type="text">
-								</p>
-								<p>
-									<label for="password">Password</label>
-									<input id="password" class="form-control" name="password2" type="password">
-								</p>
-								<p>
-									<!--<input name="submit" type="button" class="btn btn-primary btn-block" value="Login" id="submit">
-									<input type = "submit" class="btn btn-primary btn-block" name = "submit" value="Log In"/>
-								</p>
-							</form>
-						</div>-->
-				<!--</div>-->
-			<!--</div>-->
 				</div>
 			</div>
 		</div>
