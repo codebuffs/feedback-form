@@ -31,8 +31,8 @@
 	<?php
 		function dblogin(){
 			$servername = "localhost";
-			$dbusername = "test";
-			$dbpassword = "tester";
+			$dbusername = "tester";
+			$dbpassword = "test";
 			$dbname = "feedbackform";
 			$conn = mysqli_connect($servername, $dbusername, $dbpassword, $dbname);
 			if(!$conn){
@@ -69,43 +69,9 @@
 			<div class="panel-body">
 				<?php
 					//$username = htmlspecialchars($_SESSION['username']);
-					$name = $_SESSION["name"];
-					$type = htmlspecialchars($_SESSION['type']);
-					echo "<p>Welcome, $name! Have a nice day!</p><p>Choose an option to continue. </p>";
+					$name = htmlspecialchars($_SESSION['name']);
+					echo "<p>Welcome $name! Have a nice day!</p>";
 				?>
-			</div>
-		</div>
-		<br>
-		<div class="col-sm-2 col-md-2">
-		</div>
-		<div class="col-sm-3 col-md-3">
-			<div class="panel panel-warning">
-				<div class="panel-heading">
-					<p><span class="glyphicon glyphicon-home"></span>  Home</p>
-				</div>
-				<div class="panel-body">
-					<div class="btn-group btn-group-justified">
-						<div class="btn-group">
-							<input type = "submit" class="btn btn-warning btn-block" name = "home" value="Home"/>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-sm-2 col-md-2">
-		</div>
-		<div class="col-sm-3 col-md-3">
-			<div class="panel panel-warning">
-				<div class="panel-heading">
-					<p><span class="glyphicon glyphicon-list-alt"></span>  Feedback Form</p>
-				</div>
-				<div class="panel-body">
-					<div class="btn-group btn-group-justified">
-						<div class="btn-group">
-							<input type = "submit" class="btn btn-warning btn-block" name = "form" value="Feedback Form"/>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>
