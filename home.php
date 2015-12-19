@@ -61,7 +61,7 @@
 	<br>
 	<div class="container-fluid">
 		<div class="alert alert-warning">
-			<strong>Please Sign In to Continue</strong>
+			<p><strong>Please Sign In to Continue</strong></p>
 		</div>
 		<!---->
 		
