@@ -71,7 +71,7 @@
 					//$username = htmlspecialchars($_SESSION['username']);
 					$name = $_SESSION["name"];
 					$type = htmlspecialchars($_SESSION['type']);
-					echo "<p>Welcome, $name! Have a nice day!</p>";
+					echo "<p>Welcome, $name! Have a nice day!</p><p>Choose an option to continue. </p>";
 			?>
 		</div>
 		</div>
