@@ -41,8 +41,8 @@
 	<?php
 		function dblogin(){
 			$servername = "localhost";
-			$dbusername = "test";
-			$dbpassword = "tester";
+			$dbusername = "tester";
+			$dbpassword = "test";
 			$dbname = "feedbackform";
 			$conn = mysqli_connect($servername, $dbusername, $dbpassword, $dbname);
 			if(!$conn){
@@ -61,7 +61,7 @@
 	<br>
 	<div class="container-fluid">
 		<div class="alert alert-warning">
-			<strong>Please Sign In to Continue</strong>
+			<p><strong>Please Sign In to Continue</strong></p>
 		</div>
 		<!---->
 		
@@ -121,6 +121,8 @@
 						$result = mysqli_query($conn, $sql);
 						if (mysqli_num_rows($result) > 0) { // admin exists. login.
 							$found = true;
+							$row = mysqli_fetch_assoc($result);
+							$name = $row['name'];
 							$_SESSION["username"] = $username;
 							$_SESSION["type"] = $type;
 							$_SESSION["name"] = $name;
