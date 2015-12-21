@@ -25,7 +25,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="universal.css">
-	<link rel="stylesheet" href="welcomestyle.css">
+	<link rel="stylesheet" href="addstyle.css">
 </head>
 <body>
 	<?php
@@ -38,29 +38,51 @@
 			if(!$conn){
 				?>
 					<!--!-!-!-!-!-HTML Code Starts here-!-!-!-!-!-!-->
-					<div class="alert alert-warning">
-					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-					<strong>Error! </strong> Could not connect to the database.
-					</div>
-				<?php
-				return null;
-			}
-			return $conn;
-		}
-	?>
-	<div class="container-fluid">
-	<!-- NAVBAR WILL COME HERE -->
-		<?php
-			$conn = dblogin();
-			if (!$conn) {
-				//echo "<h1>Couldn't connect to DB</h1>";
-				?>
-				<!--!-!-!-!-!-HTML Code Starts here-!-!-!-!-!-!-->
 					<div class="alert alert-danger">
 					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 					<strong>Unable to connect to Database. Please contact the network administrator!</strong>
 					</div>
 				<?php
+				exit();
+			}
+			return $conn;
+		}
+	?>
+	<!-- NAVBAR COMES HERE -->
+	<nav class="navbar navbar-inverse">
+		<div class="contaner-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#"><p style="color:#804000;"> ABCDEF COLLEGE </p></a>
+			</div>
+		</div>
+		<ul class="nav navbar-nav navbar-right">
+			<li class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#"><p style="color:#cc8800;"><span class="glyphicon glyphicon-plus" ></span> Add <span class="caret"></span></p></a>
+				<ul class="dropdown-menu">
+					<li><a href="#"> Add Subject</p></a></li>
+					<li><a href="#"> Add Faculty</a></li>
+					<li><a href="#"> Add Section</a></li>
+					<li><a href="#"> Add Course</a></li>
+					<li><a href="#"> Add Department</a></li>
+				</ul>
+			</li>
+			<li class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#"><p style="color: #cc8800;"><span class="glyphicon glyphicon-minus"></span> Delete <span class="caret"></span></p></a>
+				<ul class="dropdown-menu">
+					<li><a href="#"> Delete Subject</a></li>
+					<li><a href="#"> Delete Faculty</a></li>
+					<li><a href="#"> Delete Section</a></li>
+					<li><a href="#"> Delete Course</a></li>
+					<li><a href="#"> Delete Department</a></li>
+				</ul>
+			</li>
+			<li><a href="#"><p style="color:#cc8800;"><span class="glyphicon glyphicon-font"></span>iwaii</p></a></li>
+			<li><a href="#"><p style="color:#cc8800;"><span class="glyphicon glyphicon-bold"></span>laba</p></a></li>
+		</ul>
+	</nav>
+		<?php
+			$conn = dblogin();
+			if (!$conn) { //could not connect to db.
 			}
 			else{ //connection successful!
 			}
@@ -127,9 +149,10 @@
 		}
 	?>
 	<!-- Code to check if form has been submitted ends. -->
+		<br>
 		<div class="col-sm-4"></div>
 		<div class="col-sm-4">
-		<div class="panel panel-primary" style="max-width:400px;"><!-- style="min-width:400px; max-width:400px; padding-bottom:20px;">-->
+		<div class="panel panel-warning">
 			<div class="panel-heading">
 				<span class="glyphicon glyphicon-plus"></span>  Add New Subject
 			</div>
@@ -153,6 +176,7 @@
 					<!-- Categories from categories table from the database here-->
 					<?php
 					if($conn){ //check if connected to DB
+						$conn = dblogin();
 						$sql = "SELECT dno,dname FROM department";
 						$result = mysqli_query($conn, $sql);
 						if (mysqli_num_rows($result) > 0) {
@@ -168,7 +192,7 @@
 					</select>
 				</div>
 				<!--Categories loaded in the select element-->
-				<input type = "submit" class="btn btn-default btn-block" name = "add" value = "Add Subject" />
+				<input type = "submit" class="btn btn-warning btn-block" name = "add" value = "Add Subject" />
 				</form>
 			</div>
 		</div>
