@@ -38,12 +38,12 @@
 			if(!$conn){
 				?>
 					<!--!-!-!-!-!-HTML Code Starts here-!-!-!-!-!-!-->
-					<div class="alert alert-warning">
+					<div class="alert alert-danger">
 					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-					<strong>Error! </strong> Could not connect to the database.
+					<strong>Unable to connect to Database. Please contact the network administrator!</strong>
 					</div>
 				<?php
-				return null;
+				exit();
 			}
 			return $conn;
 		}
@@ -82,15 +82,7 @@
 	</nav>
 		<?php
 			$conn = dblogin();
-			if (!$conn) {
-				//echo "<h1>Couldn't connect to DB</h1>";
-				?>
-				<!--!-!-!-!-!-HTML Code Starts here-!-!-!-!-!-!-->
-					<div class="alert alert-danger">
-					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-					<strong>Unable to connect to Database. Please contact the network administrator!</strong>
-					</div>
-				<?php
+			if (!$conn) { //could not connect to db.
 			}
 			else{ //connection successful!
 			}
@@ -184,6 +176,7 @@
 					<!-- Categories from categories table from the database here-->
 					<?php
 					if($conn){ //check if connected to DB
+						$conn = dblogin();
 						$sql = "SELECT dno,dname FROM department";
 						$result = mysqli_query($conn, $sql);
 						if (mysqli_num_rows($result) > 0) {
