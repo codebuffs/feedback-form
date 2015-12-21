@@ -1,0 +1,24 @@
+.navbar
+{
+    background-color: bisque;
+    border-color: transparent;
+    opacity: 0.9;
+
+}
+.navbar-brand
+{
+    font-size: 45px;
+    font-weight: bold;
+    font-family: "Arial Rounded MT Bold";
+    padding-top: 22px;
+}
+.navbar-nav
+{
+    font-size: 20px;
+    padding-right: 10px;
+}
+.panel-heading
+{
+    font-size: 20px;
+    font-weight: bold;
+}

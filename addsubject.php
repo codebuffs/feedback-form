@@ -25,7 +25,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="universal.css">
-	<link rel="stylesheet" href="welcomestyle.css">
+	<link rel="stylesheet" href="addstyle.css">
 </head>
 <body>
 	<?php
@@ -48,8 +48,38 @@
 			return $conn;
 		}
 	?>
-	<div class="container-fluid">
-	<!-- NAVBAR WILL COME HERE -->
+	<!-- NAVBAR COMES HERE -->
+	<nav class="navbar navbar-inverse">
+		<div class="contaner-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#"><p style="color:#804000;"> ABCDEF COLLEGE </p></a>
+			</div>
+		</div>
+		<ul class="nav navbar-nav navbar-right">
+			<li class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#"><p style="color:#cc8800;"><span class="glyphicon glyphicon-plus" ></span> Add <span class="caret"></span></p></a>
+				<ul class="dropdown-menu">
+					<li><a href="#"> Add Subject</p></a></li>
+					<li><a href="#"> Add Faculty</a></li>
+					<li><a href="#"> Add Section</a></li>
+					<li><a href="#"> Add Course</a></li>
+					<li><a href="#"> Add Department</a></li>
+				</ul>
+			</li>
+			<li class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#"><p style="color: #cc8800;"><span class="glyphicon glyphicon-minus"></span> Delete <span class="caret"></span></p></a>
+				<ul class="dropdown-menu">
+					<li><a href="#"> Delete Subject</a></li>
+					<li><a href="#"> Delete Faculty</a></li>
+					<li><a href="#"> Delete Section</a></li>
+					<li><a href="#"> Delete Course</a></li>
+					<li><a href="#"> Delete Department</a></li>
+				</ul>
+			</li>
+			<li><a href="#"><p style="color:#cc8800;"><span class="glyphicon glyphicon-font"></span>iwaii</p></a></li>
+			<li><a href="#"><p style="color:#cc8800;"><span class="glyphicon glyphicon-bold"></span>laba</p></a></li>
+		</ul>
+	</nav>
 		<?php
 			$conn = dblogin();
 			if (!$conn) {
@@ -127,9 +157,10 @@
 		}
 	?>
 	<!-- Code to check if form has been submitted ends. -->
+		<br>
 		<div class="col-sm-4"></div>
 		<div class="col-sm-4">
-		<div class="panel panel-primary" style="max-width:400px;"><!-- style="min-width:400px; max-width:400px; padding-bottom:20px;">-->
+		<div class="panel panel-warning">
 			<div class="panel-heading">
 				<span class="glyphicon glyphicon-plus"></span>  Add New Subject
 			</div>
@@ -168,7 +199,7 @@
 					</select>
 				</div>
 				<!--Categories loaded in the select element-->
-				<input type = "submit" class="btn btn-default btn-block" name = "add" value = "Add Subject" />
+				<input type = "submit" class="btn btn-warning btn-block" name = "add" value = "Add Subject" />
 				</form>
 			</div>
 		</div>
