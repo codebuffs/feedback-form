@@ -25,7 +25,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="universal.css">
-	<link rel="stylesheet" href="welcomestyle.css">
+	<link rel="stylesheet" href="addstyle.css">
 </head>
 <body>
 	<?php
@@ -49,8 +49,38 @@
 			return $conn;
 		}
 	?>
-	<div class="container-fluid">
-	<!-- NAVBAR WILL COME HERE -->
+	<!-- NAVBAR -->
+		<nav class="navbar">
+			<div class="contaner-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#"><p class="text-warning"> ABCDEF COLLEGE </p></a>
+				</div>
+			</div>
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#"><p style="color:#cc8800;"><span class="glyphicon glyphicon-plus" ></span> Add <span class="caret"></span></p></a>
+					<ul class="dropdown-menu">
+						<li><a href="#"> Add Subject</p></a></li>
+						<li><a href="#"> Add Faculty</a></li>
+						<li><a href="#"> Add Section</a></li>
+						<li><a href="#"> Add Course</a></li>
+						<li><a href="#"> Add Department</a></li>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#"><p style="color: #cc8800;"><span class="glyphicon glyphicon-minus"></span> Delete <span class="caret"></span></p></a>
+					<ul class="dropdown-menu">
+						<li><a href="#"> Delete Subject</a></li>
+						<li><a href="#"> Delete Faculty</a></li>
+						<li><a href="#"> Delete Section</a></li>
+						<li><a href="#"> Delete Course</a></li>
+						<li><a href="#"> Delete Department</a></li>
+					</ul>
+				</li>
+				<li><a href="#"><p style="color:#cc8800;"><span class="glyphicon glyphicon-font"></span>iwaii</p></a></li>
+				<li><a href="#"><p style="color:#cc8800;"><span class="glyphicon glyphicon-bold"></span>laba</p></a></li>
+			</ul>
+		</nav>
 		<?php
 			$conn = dblogin();
 			if (!$conn) {
@@ -99,7 +129,7 @@
 	}
 	?>
 	<!-- Code to check if form has been submitted ends. -->
-		<div class="panel panel-primary">
+		<div class="panel panel-warning">
       <div class="panel-heading"><span class="glyphicon glyphicon-list"></span> All Subjects</div>
       <div class="panel-body">
 		<!-- Panel Content Starts Here -->
@@ -150,7 +180,7 @@
 				?>
 					</tbody>
 				</table>
-				<input type = "submit" class="btn btn-danger" name = "delete_subject" value="Delete Selected"/>
+				<input type = "submit" class="btn btn-warning" name = "delete_subject" value="Delete Selected"/>
 				</form>
 				<?php
 			}
