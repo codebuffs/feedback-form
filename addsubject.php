@@ -52,7 +52,7 @@
 	<nav class="navbar navbar-inverse">
 		<div class="contaner-fluid">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="#"><p style="color:#804000;"> ABCDEF COLLEGE </p></a>
+				<a class="navbar-brand" href="#"><p class="text-warning"> ABCDEF COLLEGE </p></a>
 			</div>
 		</div>
 		<ul class="nav navbar-nav navbar-right">
