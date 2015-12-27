@@ -26,6 +26,7 @@
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="universal.css">
 	<link rel="stylesheet" href="welcomestyle.css">
+	<link rel="stylesheet" href="addstyle.css">
 </head>
 <body>
 	<?php
@@ -50,6 +51,7 @@
 	?>
 	<div class="container-fluid">
 	<!-- NAVBAR WILL COME HERE -->
+		<?php include('navbar.php'); ?>
 		<?php
 			$conn = dblogin();
 			if (!$conn) {
