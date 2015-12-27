@@ -17,7 +17,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>
-		Add New Department
+		Add New Faculty
 	</title>
 	<html lang="en">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -28,7 +28,6 @@
 	<link rel="stylesheet" href="addstyle.css">
 </head>
 <body>
-	<div class="contaner-fluid">
 	<?php
 		function dblogin(){
 			$servername = "localhost";
@@ -58,86 +57,55 @@
 			else{ //connection successful!
 			}
 		?>
-		
-	<script>
-		function sethodname(hodname){
-			var div = document.getElementById("hod_name");
-			if(hodname == ""){
-				div.style.color = "Red";
-				div.innerHTML = "<p>No faculty found!</p>";
-				document.getElementById("submitbutton").disabled = true;
-			}
-			else if(hodname == "~"){
-				div.style.color = "Black";
-				div.innerHTML = "<p> No HOD Selected </p>";
-				document.getElementById("submitbutton").disabled = false;
-			}
-			else{
-				div.style.color = "Black";
-				div.innerHTML = "<p>"+hodname+"</p>";
-				document.getElementById("submitbutton").disabled = false;
-			}
-		}
-		function hodChanged(){
-		var hodno = document.getElementById("hod_no").value; // change value of hidden field to the value of the visible field.
-		if(hodno == "") sethodname("~");
-		else{
-			var xmlhttp = new XMLHttpRequest();
-			xmlhttp.onreadystatechange = function() {
-				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-					sethodname(xmlhttp.responseText);
-				}
-			}
-			xmlhttp.open("GET", "hodchanged.php?hodno=" + hodno, true);
-			xmlhttp.send();
-		}
-	}
-	</script>
 		<!-- Code to check if form has been submitted -->
 	<?php
 		$error = 0;
 		if(isset($_POST['add'])) {
-			if(!$_POST['dept_name']) {
-				//echo "<p>Please supply a valid Dept name.</p>";
+			if(!$_POST['faculty_name']) {
+				//echo "<p>Please supply a valid faculty name.</p>";
 				?>
 				<div class="alert alert-danger fade in">
 					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-					<strong>Error!</strong> Please enter a valid Department Name.
+					<strong>Error!</strong> Please enter a valid Faculty Name.
 				</div>
 				<?php
 				$error++;
 			}
-		if(!$_POST['dept_no']){
+		if(!$_POST['faculty_no']){
 			?>
 				<div class="alert alert-danger fade in">
 					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-					<strong>Error!</strong> Please enter a valid Department Number.
+					<strong>Error!</strong> Please enter a valid Faculty Number.
 				</div>
 			<?php
 				$error++;
 		}
+		/*if(strcmp($_POST['department'],'blank')==0){
+			?>
+				<div class="alert alert-danger fade in">
+					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+					<strong>Error!</strong> Please enter a valid Department.
+				</div>
+			<?php
+				$error++;
+		}*/ // Faculty can belong to no department, hence, removed this check.
 			if($error == 0){ //insert into table.
 				if($conn){ //echo "<h1>Successfully connected to DB</h1>";
-					$deptname = $_POST['dept_name'];
-					$deptno = $_POST['dept_no'];
-					$hodno = $_POST['hod_no'];
-					if(strcmp($hodno,"")!=0){
-						$sql = "INSERT INTO department (dname, dno, hodno) VALUES('$deptname', $deptno, $hodno)";
-					}
-					else{
-						$sql = "INSERT INTO department (dname, dno, hodno) VALUES('$deptname', $deptno, NULL)";
-					}
+					$facultyname = $_POST['faculty_name'];
+					$facultyno = $_POST['faculty_no'];
+					$departmentno = $_POST['department'];
+					$sql = "INSERT INTO faculty (fname, fno, dno) VALUES('$facultyname', $facultyno, $departmentno)"; // no '' over $facultyno as it is an integer
 					if(mysqli_query($conn, $sql)){
-						//echo "<p> Dept added successfully. </p>";
+						//echo "<p> Subject added successfully. </p>";
 						?>
 						<div class="alert alert-success fade in">
 							<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-							<strong>New Department Added Successfully!</strong>
+							<strong>New Faculty Added Successfully!</strong>
 						</div>
 						<?php
 					}
 					else{
-						//echo "<p> Dept could not be added. Try again. </p>";
+						//echo "<p> Product could not be added. Try again. </p>";
 						?>
 							<div class="alert alert-danger fade in">
 								<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -156,31 +124,42 @@
 		<div class="col-sm-4">
 		<div class="panel panel-warning">
 			<div class="panel-heading">
-				<span class="glyphicon glyphicon-plus"></span>  Add New Department
+				<span class="glyphicon glyphicon-plus"></span>  Add New Faculty
 			</div>
 			<div class="panel-body">
 				<form role="form" method="post" action="<?=$_SERVER['PHP_SELF']?>">
 				<div class="form-group">
-					<label>Department Name</label>
-					<input type='text' name='dept_name' class="form-control" />
+					<label>Faculty Name</label>
+					<input type='text' name='faculty_name' class="form-control" />
 				</div>
 				<div class="form-group">
-					<label>Department Number</label>
-					<input type='text' name='dept_no' class="form-control" />
+					<label>Faculty Number</label>
+					<input type='text' name='faculty_no' class="form-control" />
 				</div>
 				<div class="form-group">
-					<div class="col-sm-6">
-						<label>HOD Faculty Number</label>
-						<input type='text' name='hod_no' id='hod_no' class="form-control"/>
-					</div>
-					<div id='hod_name' class="col-sm-6">
-						<p> No HOD Selected </p>
-					</div>
-						<button type='button' class="btn btn-default" name="update_hod" id='update_hod' onclick="hodChanged()">Update</button>
-					<!--<input type='text' name='hod_name' id='hod_name' class="form-control" disabled/>-->
+					<label>Department</label>
+					<select name='department' class="form-control">
+					<option class='form-control' value="NULL"></option>
+					<!-- Categories from categories table from the database here-->
+					<?php
+					if($conn){ //check if connected to DB
+						$conn = dblogin();
+						$sql = "SELECT dno,dname FROM department";
+						$result = mysqli_query($conn, $sql);
+						if (mysqli_num_rows($result) > 0) {
+							// output data of each row
+							while($row = mysqli_fetch_assoc($result)) {
+								//echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
+								echo "<option class='form-control' value=\"".$row["dno"]."\">".$row["dname"]."</option>\n";
+							}
+						}
+					}
+					mysqli_close($conn);
+					?>
+					</select>
 				</div>
 				<!--Categories loaded in the select element-->
-				<input type = "submit" class="btn btn-warning btn-block" id="submitbutton" name = "add" value = "Add Department"/>
+				<input type = "submit" class="btn btn-warning btn-block" name = "add" value = "Add Faculty" />
 				</form>
 			</div>
 		</div>
