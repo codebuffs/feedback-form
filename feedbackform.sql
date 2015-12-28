@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 27, 2015 at 08:42 AM
+-- Generation Time: Dec 28, 2015 at 01:16 PM
 -- Server version: 5.6.15-log
 -- PHP Version: 5.5.8
 
@@ -105,6 +105,33 @@ INSERT INTO `faculty` (`fname`, `fno`, `dno`) VALUES
 ('Mr. Manoj Kumar', 3, 2),
 ('Mr. Kumar', 4, 3),
 ('Mr. ABCD', 5, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `section`
+--
+
+CREATE TABLE IF NOT EXISTS `section` (
+  `secname` varchar(10) NOT NULL,
+  `password` varchar(10) NOT NULL,
+  `cno` int(5) NOT NULL,
+  `year` int(5) NOT NULL,
+  `session` int(5) NOT NULL,
+  PRIMARY KEY (`secname`,`cno`,`year`,`session`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `section`
+--
+
+INSERT INTO `section` (`secname`, `password`, `cno`, `year`, `session`) VALUES
+('D', 'abcde', 1, 3, 2015),
+('C', 'abcde', 1, 3, 2015),
+('B', 'ABcd5', 1, 3, 2015),
+('A', 'Abcde', 1, 3, 2015),
+('E', 'ABCDE', 1, 3, 2015),
+('F', 'Jygb1', 1, 3, 2015);
 
 -- --------------------------------------------------------
 
