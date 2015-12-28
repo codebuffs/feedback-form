@@ -17,7 +17,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>
-		Add New Subject
+		Add New Course
 	</title>
 	<html lang="en">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -61,26 +61,35 @@
 	<?php
 		$error = 0;
 		if(isset($_POST['add'])) {
-			if(!$_POST['subject_name']) {
-				//echo "<p>Please supply a valid subject name.</p>";
+			if(!$_POST['course_name']) {
+				//echo "<p>Please supply a valid course name.</p>";
 				?>
 				<div class="alert alert-danger fade in">
 					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-					<strong>Error!</strong> Please enter a valid Subject Name.
+					<strong>Error!</strong> Please enter a valid Course Name.
 				</div>
 				<?php
 				$error++;
 			}
-		if(!$_POST['subject_code']){
+		if(!$_POST['course_no']){
 			?>
 				<div class="alert alert-danger fade in">
 					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-					<strong>Error!</strong> Please enter a valid Subject Code.
+					<strong>Error!</strong> Please enter a valid Course Number.
 				</div>
 			<?php
 				$error++;
 		}
-		if(strcmp($_POST['department'],'blank')==0){
+		if(!$_POST['course_duration']){
+			?>
+				<div class="alert alert-danger fade in">
+					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+					<strong>Error!</strong> Please enter a valid Course Duration.
+				</div>
+			<?php
+				$error++;
+		}
+		if(strcmp($_POST['department'],'NULL')==0){
 			?>
 				<div class="alert alert-danger fade in">
 					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -91,16 +100,17 @@
 		}
 			if($error == 0){ //insert into table.
 				if($conn){ //echo "<h1>Successfully connected to DB</h1>";
-					$subjectname = $_POST['subject_name'];
-					$subjectcode = $_POST['subject_code'];
+					$coursename = $_POST['course_name'];
+					$courseno = $_POST['course_no'];
 					$departmentno = $_POST['department'];
-					$sql = "INSERT INTO subject (sname, scode, dno) VALUES('$subjectname', '$subjectcode', $departmentno)";
+					$courseduration = $_POST['course_duration'];
+					$sql = "INSERT INTO course (cname, cno, dno, duration) VALUES('$coursename', $courseno, $departmentno, $courseduration)"; // no '' over $courseno as it is an integer
 					if(mysqli_query($conn, $sql)){
 						//echo "<p> Subject added successfully. </p>";
 						?>
 						<div class="alert alert-success fade in">
 							<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-							<strong>New Subject Added Successfully!</strong>
+							<strong>New Course Added Successfully!</strong>
 						</div>
 						<?php
 					}
@@ -124,22 +134,22 @@
 		<div class="col-sm-4">
 		<div class="panel panel-warning">
 			<div class="panel-heading">
-				<span class="glyphicon glyphicon-plus"></span>  Add New Subject
+				<span class="glyphicon glyphicon-plus"></span>  Add New Course
 			</div>
 			<div class="panel-body">
 				<form role="form" method="post" action="<?=$_SERVER['PHP_SELF']?>">
 				<div class="form-group">
-					<label>Subject Name</label>
-					<input type='text' name='subject_name' class="form-control" />
+					<label>Course Name</label>
+					<input type='text' name='course_name' class="form-control" />
 				</div>
 				<div class="form-group">
-					<label>Subject Code</label>
-					<input type='text' name='subject_code' class="form-control" />
+					<label>Course Number</label>
+					<input type='text' name='course_no' class="form-control" />
 				</div>
 				<div class="form-group">
 					<label>Department</label>
 					<select name='department' class="form-control">
-					<option class='form-control' value="blank"></option>
+					<option class='form-control' value="NULL"></option>
 					<!-- Categories from categories table from the database here-->
 					<?php
 					if($conn){ //check if connected to DB
@@ -158,8 +168,12 @@
 					?>
 					</select>
 				</div>
+				<div class="form-group">
+					<label>Course Duration (in years)</label>
+					<input type='number' name='course_duration' min='1' max='10' class="form-control" />
+				</div>
 				<!--Categories loaded in the select element-->
-				<input type = "submit" class="btn btn-warning btn-block" name = "add" value = "Add Subject" />
+				<input type = "submit" class="btn btn-warning btn-block" name = "add" value = "Add Course" />
 				</form>
 			</div>
 		</div>

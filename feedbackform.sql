@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 19, 2015 at 08:45 AM
+-- Generation Time: Dec 28, 2015 at 01:16 PM
 -- Server version: 5.6.15-log
 -- PHP Version: 5.5.8
 
@@ -39,6 +39,123 @@ CREATE TABLE IF NOT EXISTS `admin` (
 INSERT INTO `admin` (`username`, `password`, `name`) VALUES
 ('tanmay', '123456', 'Tanmay Garg'),
 ('anuparna', '123456', 'Anuparna Deb');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `course`
+--
+
+CREATE TABLE IF NOT EXISTS `course` (
+  `cno` int(5) NOT NULL,
+  `cname` varchar(30) NOT NULL,
+  `duration` int(5) NOT NULL,
+  `dno` int(5) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `course`
+--
+
+INSERT INTO `course` (`cno`, `cname`, `duration`, `dno`) VALUES
+(1, 'B.Tech', 4, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `department`
+--
+
+CREATE TABLE IF NOT EXISTS `department` (
+  `hodno` int(5) DEFAULT NULL,
+  `dno` int(5) NOT NULL,
+  `dname` varchar(20) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `department`
+--
+
+INSERT INTO `department` (`hodno`, `dno`, `dname`) VALUES
+(1, 1, 'Computer Science'),
+(3, 2, 'Information Technolo'),
+(NULL, 3, 'History'),
+(NULL, 4, 'Business');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `faculty`
+--
+
+CREATE TABLE IF NOT EXISTS `faculty` (
+  `fname` varchar(30) NOT NULL,
+  `fno` int(5) NOT NULL,
+  `dno` int(5) DEFAULT NULL,
+  UNIQUE KEY `fno` (`fno`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `faculty`
+--
+
+INSERT INTO `faculty` (`fname`, `fno`, `dno`) VALUES
+('Dr. Vinita Singh', 1, 1),
+('Dr. Anupam Sharma', 2, 1),
+('Mr. Manoj Kumar', 3, 2),
+('Mr. Kumar', 4, 3),
+('Mr. ABCD', 5, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `section`
+--
+
+CREATE TABLE IF NOT EXISTS `section` (
+  `secname` varchar(10) NOT NULL,
+  `password` varchar(10) NOT NULL,
+  `cno` int(5) NOT NULL,
+  `year` int(5) NOT NULL,
+  `session` int(5) NOT NULL,
+  PRIMARY KEY (`secname`,`cno`,`year`,`session`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `section`
+--
+
+INSERT INTO `section` (`secname`, `password`, `cno`, `year`, `session`) VALUES
+('D', 'abcde', 1, 3, 2015),
+('C', 'abcde', 1, 3, 2015),
+('B', 'ABcd5', 1, 3, 2015),
+('A', 'Abcde', 1, 3, 2015),
+('E', 'ABCDE', 1, 3, 2015),
+('F', 'Jygb1', 1, 3, 2015);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `subject`
+--
+
+CREATE TABLE IF NOT EXISTS `subject` (
+  `scode` varchar(20) NOT NULL,
+  `sname` varchar(20) NOT NULL,
+  `dno` int(5) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `subject`
+--
+
+INSERT INTO `subject` (`scode`, `sname`, `dno`) VALUES
+('CS-101', 'Operating Systems', 1),
+('CS-102', 'Networking', 1),
+('CS-104', 'Microprocessors', 1),
+('CS-105', 'Algorithms', 1),
+('IT-101', 'IT Subject 1', 2),
+('IT-102', 'IT Subject 2', 2);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

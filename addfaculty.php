@@ -17,7 +17,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>
-		Add New Subject
+		Add New Faculty
 	</title>
 	<html lang="en">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -61,26 +61,26 @@
 	<?php
 		$error = 0;
 		if(isset($_POST['add'])) {
-			if(!$_POST['subject_name']) {
-				//echo "<p>Please supply a valid subject name.</p>";
+			if(!$_POST['faculty_name']) {
+				//echo "<p>Please supply a valid faculty name.</p>";
 				?>
 				<div class="alert alert-danger fade in">
 					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-					<strong>Error!</strong> Please enter a valid Subject Name.
+					<strong>Error!</strong> Please enter a valid Faculty Name.
 				</div>
 				<?php
 				$error++;
 			}
-		if(!$_POST['subject_code']){
+		if(!$_POST['faculty_no']){
 			?>
 				<div class="alert alert-danger fade in">
 					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-					<strong>Error!</strong> Please enter a valid Subject Code.
+					<strong>Error!</strong> Please enter a valid Faculty Number.
 				</div>
 			<?php
 				$error++;
 		}
-		if(strcmp($_POST['department'],'blank')==0){
+		/*if(strcmp($_POST['department'],'blank')==0){
 			?>
 				<div class="alert alert-danger fade in">
 					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -88,19 +88,19 @@
 				</div>
 			<?php
 				$error++;
-		}
+		}*/ // Faculty can belong to no department, hence, removed this check.
 			if($error == 0){ //insert into table.
 				if($conn){ //echo "<h1>Successfully connected to DB</h1>";
-					$subjectname = $_POST['subject_name'];
-					$subjectcode = $_POST['subject_code'];
+					$facultyname = $_POST['faculty_name'];
+					$facultyno = $_POST['faculty_no'];
 					$departmentno = $_POST['department'];
-					$sql = "INSERT INTO subject (sname, scode, dno) VALUES('$subjectname', '$subjectcode', $departmentno)";
+					$sql = "INSERT INTO faculty (fname, fno, dno) VALUES('$facultyname', $facultyno, $departmentno)"; // no '' over $facultyno as it is an integer
 					if(mysqli_query($conn, $sql)){
 						//echo "<p> Subject added successfully. </p>";
 						?>
 						<div class="alert alert-success fade in">
 							<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-							<strong>New Subject Added Successfully!</strong>
+							<strong>New Faculty Added Successfully!</strong>
 						</div>
 						<?php
 					}
@@ -124,22 +124,22 @@
 		<div class="col-sm-4">
 		<div class="panel panel-warning">
 			<div class="panel-heading">
-				<span class="glyphicon glyphicon-plus"></span>  Add New Subject
+				<span class="glyphicon glyphicon-plus"></span>  Add New Faculty
 			</div>
 			<div class="panel-body">
 				<form role="form" method="post" action="<?=$_SERVER['PHP_SELF']?>">
 				<div class="form-group">
-					<label>Subject Name</label>
-					<input type='text' name='subject_name' class="form-control" />
+					<label>Faculty Name</label>
+					<input type='text' name='faculty_name' class="form-control" />
 				</div>
 				<div class="form-group">
-					<label>Subject Code</label>
-					<input type='text' name='subject_code' class="form-control" />
+					<label>Faculty Number</label>
+					<input type='text' name='faculty_no' class="form-control" />
 				</div>
 				<div class="form-group">
 					<label>Department</label>
 					<select name='department' class="form-control">
-					<option class='form-control' value="blank"></option>
+					<option class='form-control' value="NULL"></option>
 					<!-- Categories from categories table from the database here-->
 					<?php
 					if($conn){ //check if connected to DB
@@ -159,7 +159,7 @@
 					</select>
 				</div>
 				<!--Categories loaded in the select element-->
-				<input type = "submit" class="btn btn-warning btn-block" name = "add" value = "Add Subject" />
+				<input type = "submit" class="btn btn-warning btn-block" name = "add" value = "Add Faculty" />
 				</form>
 			</div>
 		</div>
