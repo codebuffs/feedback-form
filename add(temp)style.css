@@ -1,0 +1,115 @@
+body
+{
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background-image: url("bk8.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: sans-serif;
+}
+#container
+{
+    display: block;
+    min-height: 100%;
+}
+.panel
+{
+    margin-top: 100px;
+}
+input[type=checkbox]
+{
+    position: absolute;
+    opacity: 0;
+}
+label
+{
+    position: absolute;
+    top: 2px;
+    left: 10px;
+    z-index: 1;
+    display: block;
+    font-size:3em;
+    color: #444;
+    cursor: pointer;
+    width:30px;
+    height:30px;
+    transform: translate3d(0, 0, 0);
+    transition: transform .4s;
+}
+input[type=checkbox]:checked ~ label
+{
+    transform: translate3d(300px, 0, 0);
+    margin-top: 10px;
+    margin-left: -15px;
+}
+.content
+{
+    /*width:100%;
+    height: 100%;*/
+    padding: 2px;
+    /*background: #f2f2f2;*/
+    /*background-image: url("bk8.jpg");*/
+    transform: translate3d(0, 0, 0);
+    transition: transform .2s;
+}
+input[type=checkbox]:checked ~ .content
+{
+    transform: translate3d(290px, 0, 0);
+}
+input[type=checkbox]:checked ~ .slide-menu
+{
+    transform: translate3d(0, 0, 0);
+}
+input[type=checkbox]:checked ~ .slide-menu .menu li
+{
+    width: 100%;
+}
+.slide-menu
+{
+    transform: translate3d(-290px, 0, 0);
+    position: absolute;
+    width: 290px;
+    background: #993300;
+    opacity: 0.9;
+    color: white;
+    height: 100%;
+    transition: all .4s;
+    border-bottom: 1px solid saddlebrown;
+}
+.slide-menu h2
+{
+    margin-top: 17px;
+    padding: 10px;
+    text-shadow: 1px 1px 1px #000;
+}
+.menu
+{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.menu a
+{
+    display: block;
+    text-decoration: none;
+    color: white;
+    font-size: 1.5em;
+    padding: 15px;
+    margin: 0px;
+    width: 290px;
+    background: linear-gradient(#993300, #b33b00);
+    border-bottom: 1px solid saddlebrown;
+    box-shadow: inset 0px 1px 1px brown;
+}
+.menu a:hover
+{
+    background: #802a00;
+    box-shadow: inset 0px 1px 1px brown;
+}
+.dropdown-menu
+{
+    background-color: #b33b00;
+    color: #fff;
+}
