@@ -3,27 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <!-- for mobile first -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- including bootstrap -->
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- including external style sheet -->
-    <link rel="stylesheet" href="add(temp)style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="s.css">
+    <!--<script>
+        $(document).ready(function(){
+            $("#flip1").click(function(){
+                $("#flip2").slideDown("slow");
+            });
+        });
+    </script>-->
 </head>
 <body>
 <div class="container-fluid">
+
     <div id="container">
-        <!-- the hamburger icon -->
         <input id="toggle" type="checkbox" />
         <label for="toggle"><img src="hm.png" height="40px" width="40px"></label>
         <div class="content">
             <div class="row">
                 <div class="col-sm-4"></div>
                 <div class="col-sm-4">
-                    <!-- add subject panel starts here -->
                     <div class="panel panel-warning" style="max-width:400px;">
                         <div class="panel-heading">
                             <h1><span class="glyphicon glyphicon-plus"></span>  Add New Subject</h1>
@@ -50,15 +54,13 @@
                             </form>
                         </div>
                     </div>
-                    <!-- add subject panel ends -->
                 </div>
-                <!-- sliding menu starts here -->
                 <div class="slide-menu">
                     <h2>ABCXYZ College</h2>
                     <nav class="menu">
                         <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><p></span> Add <span class="caret"></span></p></a>
-                            <ul class="dropdown-menu">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><p><span class="glyphicon glyphicon-plus-sign"></span>   Add <span class="glyphicon glyphicon-menu-right" style="float: right"></span></p></a>
+                            <ul class="dropdown-menu" id="sub">
                                 <li><a href="#"> Add Subject</a></li>
                                 <li><a href="#"> Add Faculty</a></li>
                                 <li><a href="#"> Add Section</a></li>
@@ -66,9 +68,10 @@
                                 <li><a href="#"> Add Department</a></li>
                             </ul>
                         </li>
+
                         <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><p></span> Delete <span class="caret"></span></p></a>
-                            <ul class="dropdown-menu">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><p><span class="glyphicon glyphicon-minus-sign"></span>   Delete <span class="glyphicon glyphicon-menu-right" style="float: right"></span></p></a>
+                            <ul class="dropdown-menu" id="sub">
                                 <li><a href="#"> Delete Subject</a></li>
                                 <li><a href="#"> Delete Faculty</a></li>
                                 <li><a href="#"> Delete Section</a></li>
@@ -76,12 +79,12 @@
                                 <li><a href="#"> Delete Department</a></li>
                             </ul>
                         </li>
-                        <li><a href="#">Option 1</a></li>
-                        <li><a href="#">Option 2</a></li>
-                        <li><a href="#">Sign Out</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-home"></span>  Option 1</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-file"></span>  Option 2</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-log-out"></span>  Sign Out</a></li>
+
                     </nav>
                 </div>
-                <!-- sliding menu ends -->
                 <div class="col-sm-4"></div>
             </div>
         </div>
