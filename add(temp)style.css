@@ -1,0 +1,136 @@
+body
+{
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background-image: url("bk8.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: sans-serif;
+}
+#container
+{
+    display: block;
+    min-height: 100%;
+}
+.panel
+{
+    margin-top: 100px;
+}
+input[type=checkbox]
+{
+    position: absolute;
+    opacity: 0;
+}
+label
+{
+    position: absolute;
+    top: 2px;
+    left: 10px;
+    z-index: 1;
+    display: block;
+    font-size:3em;
+    color: #444;
+    cursor: pointer;
+    width:30px;
+    height:30px;
+    transform: translate3d(0, 0, 0);
+    transition: transform .4s;
+}
+input[type=checkbox]:checked ~ label
+{
+    transform: translate3d(300px, 0, 0);
+    margin-top: 10px;
+    margin-left: -15px;
+}
+.content
+{
+    /*width:100%;
+    height: 100%;*/
+    padding: 2px;
+    /*background: #f2f2f2;*/
+    /*background-image: url("bk8.jpg");*/
+    transform: translate3d(0, 0, 0);
+    transition: transform .2s;
+}
+input[type=checkbox]:checked ~ .content
+{
+    transform: translate3d(290px, 0, 0);
+}
+input[type=checkbox]:checked ~ .slide-menu
+{
+    transform: translate3d(0, 0, 0);
+}
+input[type=checkbox]:checked ~ .slide-menu .menu li
+{
+    width: 100%;
+}
+.slide-menu
+{
+    transform: translate3d(-290px, 0, 0);
+    position: absolute;
+    width: 290px;
+    background: #cc4400;
+    opacity: 0.9;
+    color: white;
+    height: 100%;
+    transition: all .4s;
+    border-bottom: 1px solid #cc4400;
+}
+.slide-menu h2
+{
+    margin-top: 17px;
+    padding: 10px;
+    text-shadow: 1px 1px 1px #000;
+}
+.menu
+{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.menu a
+{
+    display: block;
+    text-decoration: none;
+    color: white;
+    font-size: 1.5em;
+    padding: 15px;
+    margin: 0px;
+    width: 290px;
+    background: linear-gradient(#cc4400, #e64d00);
+    border-bottom: 1px solid #e64d00;
+    box-shadow: inset 0px 1px 1px #cc4400;
+}
+.menu a:hover
+{
+    background: #b33b00;
+    box-shadow: inset 0px 1px 1px #b33b00;
+}
+.dropdown-menu
+{
+    background-color: #b33b00;
+    color: #fff;
+}
+#sub
+{
+    margin-left: 290px;
+    margin-top: -72px;
+    background-color: #e64c00;
+    opacity: 0.9;
+}
+#sub a
+{
+    text-decoration: none;
+    color: #eeeeee;
+    background: #e64c00;
+    border-bottom: 0.5px solid #e64c00;
+    box-shadow: inset 0px 0.5px 0.5px #e64c00;
+}
+#sub a:hover
+{
+    background-color: #cc4300;
+    box-shadow: inset 0 0.5px 0.5px #cc4300;
+    font-weight: bold;
+}
