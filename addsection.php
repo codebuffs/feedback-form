@@ -164,37 +164,249 @@
 					$academicsession = $_POST['academic_session'];
 					$sectionyear = $_POST['section_year'];
 					$sectionpw = $_POST['section_pw'];
-					$sql = "INSERT INTO section (secname, cno, year, session, password) VALUES('$sectionname', $courseno, $sectionyear, $academicsession, '$sectionpw')"; // no '' over $courseno as it is an integer
-					if(mysqli_query($conn, $sql)){
-						//echo "<p> Subject added successfully. </p>";
+					$sql = "SELECT * FROM section WHERE secname = '$sectionname' AND cno = $courseno AND year = $sectionyear AND session = $academicsession"; // no '' over $courseno as it is an integer
+					//
+					$result = mysqli_query($conn, $sql);
+					if (mysqli_num_rows($result) > 0) { // section exists.
+						$exists = true;
+						$row = mysqli_fetch_assoc($result);
 						?>
-						<div class="alert alert-success fade in">
-							<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-							<strong>New Section Added Successfully!</strong>
-						</div>
-						<?php
-					}
-					else{
-						//echo "<p> Product could not be added. Try again. </p>";
-						?>
-							<div class="alert alert-danger fade in">
+							<div class="alert alert-warning fade in">
 								<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-								<strong>Something went wrong!</strong> Please contact the network administrator.
+								<strong>Section Already Exists!</strong>
+								<p>
+									<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#addModal">Add Teaching Faculty</button>
+									<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#delModal">Delete Teaching Faculty</button>
+								</p>
 							</div>
 						<?php
+					}
+					//
+					else{ //section does not exist.
+						$sql = "INSERT INTO section (secname, cno, year, session, password) VALUES('$sectionname', $courseno, $sectionyear, $academicsession, '$sectionpw')"; // no '' over $courseno as it is an integer
+						if(mysqli_query($conn, $sql)){
+							//echo "<p> Subject added successfully. </p>";
+							?>
+							<div class="alert alert-success fade in">
+								<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+								<strong>New Section Added Successfully!</strong>
+								<p>
+									<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#addModal">Add Teaching Faculty</button>
+									<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#delModal">Delete Teaching Faculty</button>
+								</p>
+							</div>
+							<?php
+						}
+						else{
+							//echo "<p> Product could not be added. Try again. </p>";
+							?>
+								<div class="alert alert-danger fade in">
+									<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+									<strong>Something went wrong!</strong> Please contact the network administrator.
+								</div>
+							<?php
+						}
 					}
 				}
 				mysqli_close($conn);
 			}
 		}
 	?>
+	<!-- Delete Modal Starts-->
+	<div id="delModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Delete Teaching Faculty</h4>
+				</div>
+				<div class="modal-body">
+					<!-- MODAL BODY STARTS -->
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th></th>
+								<th>Department</th>
+								<th>Faculty Name</th>
+								<th>Subject</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+							for($i=0;$i<10;$i++)
+							{
+									echo"
+											<tr>
+												<td></td>
+												<td>John</td>
+												<td>Doe</td>
+												<td>john@example.com</td>
+											</tr>
+									";
+							}
+							?>
+						</tbody>
+					</table>
+					<!-- MODAL BODY ENDS -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--Delete Modal Ends-->
+	<script>
+		function atfdepartmentChanged(){
+			document.getElementById('atf_faculty').options.length = 0;
+			document.getElementById('atf_subject').options.length = 0;
+			if(document.getElementById("atf_department").value != "NULL"){
+				var dno = document.getElementById("atf_department").value;
+				document.getElementById('atf_conveyer').innerHTML = "";
+				var xmlhttp = new XMLHttpRequest();
+				xmlhttp.onreadystatechange = function() {
+					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+						//load select atf_faculty.
+						//document.getElementById("atf_department")
+						var facstring = xmlhttp.responseText.split("@")[0];
+						var subjectstring = xmlhttp.responseText.split("@")[1];
+						var facs = facstring.split(">");
+						var select = document.getElementById('atf_faculty');
+						for(var i=1;i<facs.length;i++){
+							var fno = facs[i].split("~")[0];
+							var fname = facs[i].split("~")[1];
+							var opt = document.createElement('option');
+							opt.value = fno;
+							opt.innerHTML = fname;
+							select.appendChild(opt);
+						}
+						var subs = subjectstring.split(">");
+						select = document.getElementById('atf_subject');
+						for(var i=1;i<subs.length;i++){
+							document.getElementById('atf_addbutton').disabled = false;
+							var scode = subs[i].split("~")[0];
+							var sname = subs[i].split("~")[1];
+							var opt = document.createElement('option');
+							opt.value = scode;
+							opt.innerHTML = sname;
+							select.appendChild(opt);
+						}
+						if(subs.length<=1){
+							//no faculties in the department selected.
+							document.getElementById('atf_conveyer').innerHTML = document.getElementById('atf_conveyer').innerHTML + " No subjects in the selected department.";
+							document.getElementById('atf_addbutton').disabled = true;
+						}
+						if(facs.length<=1){
+							//no faculties in the department selected.
+							document.getElementById('atf_conveyer').innerHTML = document.getElementById('atf_conveyer').innerHTML + " No faculties in the selected department.";
+							document.getElementById('atf_addbutton').disabled = true;
+						}
+					}
+				}
+				xmlhttp.open("GET", "atfdeptchanged.php?dno=" + dno, true);
+				xmlhttp.send();
+			}
+			else{ //NULL department selected.
+				document.getElementById('atf_conveyer').innerHTML = "Please select a valid department.";
+				document.getElementById('atf_addbutton').disabled = true;
+			}
+		}
+		function atfaddClicked(){
+			var dpt = document.getElementById('atf_department').value;
+			var fac = document.getElementById('atf_faculty').value;
+			var sub = document.getElementById('atf_subject').value;
+			var secname = <?php echo json_encode($sectionname); ?>;
+			var courseno = <?php echo json_encode($courseno); ?>;
+			var sectionyear = <?php echo json_encode($sectionyear); ?>;
+			var academicsession = <?php echo json_encode($academicsession); ?>;
+			//
+			var xmlhttp = new XMLHttpRequest();
+				xmlhttp.onreadystatechange = function() {
+					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+						document.getElementById('atf_conveyer').innerHTML = xmlhttp.responseText;
+						if(xmlhttp.responseText == "Success"){
+							document.getElementById('atf_conveyer').innerHTML = "Teaching Faculty Added Successfully!";
+							document.getElementById('atf_addbutton').disabled = true;
+						}
+					}
+				}
+				xmlhttp.open("GET", "teachingfacultyadd.php?d0=" + secname + "&d1=" + courseno + "&d2=" + sectionyear + "&d3=" + academicsession + "&d4=" + dpt + "&d5=" + fac + "&d6=" + sub, true);
+				xmlhttp.send();
+			//
+		}
+	</script>
+	<!-- Add Modal Starts-->
+	<div id="addModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Add Teaching Faculty</h4>
+				</div>
+				<div class="modal-body">
+					<!-- MODAL BODY STARTS -->
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th>Department</th>
+								<th>Faculty Name</th>
+								<th>Subject</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									<select name='atf_department' id='atf_department' onchange="atfdepartmentChanged()" class="form-control">
+									<option class='form-control' value="NULL"></option>
+									<!-- Categories from categories table from the database here-->
+									<?php
+										if($conn){ //check if connected to DB
+											$conn = dblogin();
+											$sql = "SELECT dno,dname FROM department";
+											$result = mysqli_query($conn, $sql);
+											if (mysqli_num_rows($result) > 0) {
+												// output data of each row
+												while($row = mysqli_fetch_assoc($result)) {
+													//echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
+													echo "<option class='form-control' value=\"".$row["dno"]."\">".$row["dname"]."</option>\n";
+												}
+											}
+										}
+									?>
+									</select>
+								</td>
+								<td>
+									<select name='atf_faculty' id='atf_faculty' class="form-control">
+								</td>
+								<td>
+									<select name='atf_subject' id='atf_subject' class="form-control">
+								</td>
+								<td>
+									<button class="btn btn-warning btn-block" id="atf_addbutton" onclick="atfaddClicked()" name = "atf_add" disabled> Add </button>
+								</td>
+							</tr>
+									
+						</tbody>
+					</table>
+					<div id="atf_conveyer"></div>
+					<!-- MODAL BODY ENDS -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--Add Modal Ends-->
+	
 	<!-- Code to check if form has been submitted ends. -->
 		<br>
 		<div class="col-sm-4"></div>
 		<div class="col-sm-4">
 		<div class="panel panel-warning">
 			<div class="panel-heading">
-				<span class="glyphicon glyphicon-plus"></span>  Add New Section
+				<span class="glyphicon glyphicon-plus"></span>  Add / Modify Section
 			</div>
 			<div class="panel-body">
 				<form role="form" method="post" action="<?=$_SERVER['PHP_SELF']?>">
@@ -244,7 +456,7 @@
 						<input type='checkbox' id='toggle_pw' onchange='togglePw()' /> Show password
 					</p>
 				</div>
-				<input type = "submit" class="btn btn-warning btn-block" id="addbutton" name = "add" value = "Add Course"/>
+				<input type = "submit" class="btn btn-warning btn-block" id="addbutton" name = "add" value = "Add/Modify"/>
 				</form>
 			</div>
 		</div>
