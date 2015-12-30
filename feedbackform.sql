@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 28, 2015 at 01:16 PM
+-- Generation Time: Dec 30, 2015 at 02:46 PM
 -- Server version: 5.6.15-log
 -- PHP Version: 5.5.8
 
@@ -155,7 +155,32 @@ INSERT INTO `subject` (`scode`, `sname`, `dno`) VALUES
 ('CS-104', 'Microprocessors', 1),
 ('CS-105', 'Algorithms', 1),
 ('IT-101', 'IT Subject 1', 2),
-('IT-102', 'IT Subject 2', 2);
+('IT-102', 'IT Subject 2', 2),
+('BU-101', 'Business Subject 1', 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `teaches`
+--
+
+CREATE TABLE IF NOT EXISTS `teaches` (
+  `secname` varchar(10) NOT NULL,
+  `cno` int(5) NOT NULL,
+  `year` int(5) NOT NULL,
+  `session` int(5) NOT NULL,
+  `dno` int(5) NOT NULL,
+  `fno` int(5) NOT NULL,
+  `scode` varchar(20) NOT NULL,
+  PRIMARY KEY (`secname`,`cno`,`year`,`session`,`dno`,`fno`,`scode`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `teaches`
+--
+
+INSERT INTO `teaches` (`secname`, `cno`, `year`, `session`, `dno`, `fno`, `scode`) VALUES
+('D', 1, 3, 2015, 1, 2, 'CS-104');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
