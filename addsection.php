@@ -208,11 +208,35 @@
 						}
 					}
 				}
-				mysqli_close($conn);
+				//mysqli_close($conn);
 			}
 		}
 	?>
 	<!-- Delete Modal Starts-->
+	<script>
+		function dtfdelClicked(btnname){
+			var btnno = btnname.split("_")[2];
+			var fno = document.getElementById("dtf_input_fno_"+btnno).value;
+			var scode = document.getElementById("dtf_input_scode_"+btnno).value;
+			var secname = <?php echo json_encode($sectionname); ?>;
+			var courseno = <?php echo json_encode($courseno); ?>;
+			var sectionyear = <?php echo json_encode($sectionyear); ?>;
+			var academicsession = <?php echo json_encode($academicsession); ?>;
+			//
+			var xmlhttp = new XMLHttpRequest();
+				xmlhttp.onreadystatechange = function() {
+					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+						if(xmlhttp.responseText == "Success"){
+							document.getElementById('btnname').disabled = true;
+						}
+						document.getElementById('dtf_conveyer').innerHTML = xmlhttp.responseText;
+					}
+				}
+				xmlhttp.open("GET", "teachingfacultydel.php?d0=" + secname + "&d1=" + courseno + "&d2=" + sectionyear + "&d3=" + academicsession + "&d4=" + fno + "&d5=" + scode, true);
+				xmlhttp.send();
+			//
+		}
+	</script>
 	<div id="delModal" class="modal fade" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -225,28 +249,67 @@
 					<table class="table table-bordered">
 						<thead>
 							<tr>
-								<th></th>
 								<th>Department</th>
 								<th>Faculty Name</th>
 								<th>Subject</th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
 							<?php
-							for($i=0;$i<10;$i++)
-							{
-									echo"
+								$i = -1;
+								$sql = "SELECT * FROM teaches WHERE secname = '$sectionname' AND cno = $courseno AND year = $sectionyear AND session = $academicsession;";
+								//$sql = "SELECT * FROM teaches";
+								$result = mysqli_query($conn,$sql);
+								if (mysqli_num_rows($result) > 0){
+									while($row = mysqli_fetch_assoc($result)) {
+										$i++;
+										$dtf_fno = $row["fno"];
+										// get fname from fno
+											$sql = "SELECT * FROM faculty WHERE fno = $dtf_fno;";
+											$result2 = mysqli_query($conn,$sql);
+											if (mysqli_num_rows($result2) > 0){ //records have been selected to delete.
+												while($row2 = mysqli_fetch_assoc($result2)) {
+												$dtf_fname = $row2["fname"];
+												$dtf_dptno = $row2["dno"];
+												}
+											}
+										// get sname from scode
+											$dtf_scode = $row["scode"];
+											$sql = "SELECT * FROM subject WHERE scode = '$dtf_scode';";
+											$result2 = mysqli_query($conn,$sql);
+											if (mysqli_num_rows($result2) > 0){ //records have been selected to delete.
+												while($row2 = mysqli_fetch_assoc($result2)) {
+												$dtf_sname = $row2["sname"];
+												}
+											}
+										// get dept name from dept no
+											$sql = "SELECT * FROM department WHERE dno = $dtf_dptno;";
+											$result2 = mysqli_query($conn,$sql);
+											if (mysqli_num_rows($result2) > 0){ //records have been selected to delete.
+												while($row2 = mysqli_fetch_assoc($result2)) {
+												$dtf_dname = $row2["dname"];
+												}
+											}
+										//
+										echo"
+											<input type='hidden' name='dtf_input_fno_".$i."' id='dtf_input_fno_".$i."' value='$dtf_fno' />
+											<input type='hidden' name='dtf_input_scode_".$i."' id='dtf_input_scode_".$i."' value='$dtf_scode' />
 											<tr>
-												<td></td>
-												<td>John</td>
-												<td>Doe</td>
-												<td>john@example.com</td>
+												<td>$dtf_dname</td>
+												<td>$dtf_fname</td>
+												<td>$dtf_sname</td>
+												<td><button class='btn btn-warning btn-block' id='dtf_delbutton_".$i."' onclick='dtfdelClicked(this.name)' name = 'dtf_delbutton_".$i."'> Delete </button></td>
 											</tr>
-									";
-							}
+										";
+										//
+									}
+								}
 							?>
 						</tbody>
 					</table>
+						<div id="dtf_conveyer"></div>
+						<?php if($i == -1) echo 'No teaching record found for this section!'; ?>
 					<!-- MODAL BODY ENDS -->
 				</div>
 				<div class="modal-footer">
@@ -312,7 +375,7 @@
 			}
 		}
 		function atfaddClicked(){
-			var dpt = document.getElementById('atf_department').value;
+			//var dpt = document.getElementById('atf_department').value;
 			var fac = document.getElementById('atf_faculty').value;
 			var sub = document.getElementById('atf_subject').value;
 			var secname = <?php echo json_encode($sectionname); ?>;
@@ -330,7 +393,7 @@
 						}
 					}
 				}
-				xmlhttp.open("GET", "teachingfacultyadd.php?d0=" + secname + "&d1=" + courseno + "&d2=" + sectionyear + "&d3=" + academicsession + "&d4=" + dpt + "&d5=" + fac + "&d6=" + sub, true);
+				xmlhttp.open("GET", "teachingfacultyadd.php?d0=" + secname + "&d1=" + courseno + "&d2=" + sectionyear + "&d3=" + academicsession + /*"&d4=" + dpt +*/ "&d5=" + fac + "&d6=" + sub, true);
 				xmlhttp.send();
 			//
 		}
@@ -438,7 +501,7 @@
 							}
 						}
 					}
-					mysqli_close($conn);
+					//mysqli_close($conn);
 					?>
 					</select>
 				</div>
