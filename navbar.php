@@ -29,7 +29,7 @@
 			<li><a href="#"><p style="color:#cc8800;"><span class="glyphicon glyphicon-bold"></span>laba</p></a></li>
 		</ul>
 	</nav> -->
-
+<!--
 <div id="container">
 	<nav class="navbar navbar-inverse navbar-fixed-top" style="background-color: #fff9e5; height: 100px; ">
 		<div class="container-fluid">
@@ -115,3 +115,4 @@
 		text-decoration: none;
 	}
 </style>
+-->

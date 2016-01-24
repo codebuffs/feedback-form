@@ -99,7 +99,7 @@
 		}
 	?>
 	<!-- NAVBAR COMES HERE -->
-	<?php include('navbar.php'); ?>
+	<?php //include('navbar.php'); ?>
 		<?php
 			$conn = dblogin();
 			if (!$conn) { //could not connect to db.

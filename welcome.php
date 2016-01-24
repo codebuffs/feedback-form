@@ -12,6 +12,8 @@
 	}
 	if(strcmp($_SESSION["type"],'student')==0){
 		//redirect to feedback form page.
+		header('Location: '."feedback.php");
+		//
 	}
 ?>
 <head>
