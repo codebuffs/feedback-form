@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 30, 2015 at 02:46 PM
+-- Generation Time: Jan 24, 2016 at 03:57 PM
 -- Server version: 5.6.15-log
 -- PHP Version: 5.5.8
 
@@ -109,6 +109,23 @@ INSERT INTO `faculty` (`fname`, `fno`, `dno`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `feedback`
+--
+
+CREATE TABLE IF NOT EXISTS `feedback` (
+  `session` int(10) NOT NULL,
+  `year` int(10) NOT NULL,
+  `cno` int(10) NOT NULL,
+  `secname` varchar(10) NOT NULL,
+  `fno` int(10) NOT NULL,
+  `qno` int(10) NOT NULL,
+  `scode` varchar(10) NOT NULL,
+  `rating` int(10) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `section`
 --
 
@@ -169,18 +186,18 @@ CREATE TABLE IF NOT EXISTS `teaches` (
   `cno` int(5) NOT NULL,
   `year` int(5) NOT NULL,
   `session` int(5) NOT NULL,
-  `dno` int(5) NOT NULL,
   `fno` int(5) NOT NULL,
   `scode` varchar(20) NOT NULL,
-  PRIMARY KEY (`secname`,`cno`,`year`,`session`,`dno`,`fno`,`scode`)
+  PRIMARY KEY (`secname`,`cno`,`year`,`session`,`fno`,`scode`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `teaches`
 --
 
-INSERT INTO `teaches` (`secname`, `cno`, `year`, `session`, `dno`, `fno`, `scode`) VALUES
-('D', 1, 3, 2015, 1, 2, 'CS-104');
+INSERT INTO `teaches` (`secname`, `cno`, `year`, `session`, `fno`, `scode`) VALUES
+('D', 1, 3, 2015, 2, 'CS-104'),
+('D', 1, 3, 2015, 3, 'IT-101');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
